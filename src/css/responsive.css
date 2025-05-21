@@ -1,0 +1,143 @@
+/* Responsive Styles for MoneyBridge */
+
+/* Tablets */
+@media screen and (max-width: 992px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+  }
+
+  .hero-text {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+
+  .loan-form {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .loan-types {
+    justify-content: center;
+  }
+
+  .loan-type {
+    min-width: calc(50% - 20px);
+  }
+
+  .features-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Phones */
+@media screen and (max-width: 768px) {
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .main-nav.active {
+    display: block;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .submenu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: none;
+    padding-left: 20px;
+  }
+
+  .menu-item.active .submenu {
+    display: block;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .loan-type {
+    min-width: 100%;
+  }
+
+  .stats-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-item {
+    margin-bottom: 30px;
+  }
+
+  .features-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .top-bar .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Small Mobile Phones */
+@media screen and (max-width: 480px) {
+  .hero-section {
+    padding: 60px 0;
+  }
+
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .loan-form {
+    padding: 20px;
+  }
+
+  .section-header h1 {
+    font-size: 2rem;
+  }
+
+  .feature-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .feature-content {
+    text-align: center;
+  }
+}
