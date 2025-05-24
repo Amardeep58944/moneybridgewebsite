@@ -1,4 +1,11 @@
 // MoneyBridge Worker Handler
+
+interface Env {
+  // Define your environment variables here if needed
+  // Example:
+  // DB: D1Database
+}
+
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
@@ -13,10 +20,9 @@ export default {
           formDataObj[key] = value.toString();
         });
 
-        // In a real app, you would process the form data here
+        // Simulate form processing
         console.log('Form submitted with data:', formDataObj);
 
-        // Return a success response
         return new Response(
           JSON.stringify({ 
             success: true, 
@@ -41,42 +47,68 @@ export default {
       }
     }
 
-    // Serve your static HTML file for all other requests
-    // Note: You'll need to handle static file serving differently in Workers
+    // Serve static HTML for all other requests
     return new Response(getHTML(), {
       headers: { 'Content-Type': 'text/html' }
     });
   }
 };
 
-// This would be your HTML content (simplified example)
+// Serve static HTML
 function getHTML(): string {
-  return `
-<!DOCTYPE html>
-<html>
+  return `<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MoneyBridge</title>
   <style>
-    /* Your CSS here */
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .form-group { margin-bottom: 10px; }
+    label { display: block; margin-bottom: 4px; }
+    input, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .main-nav.active { display: block; }
+    header.sticky { position: fixed; top: 0; width: 100%; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
   </style>
 </head>
 <body>
   <header id="header">
-    <!-- Your header content -->
+    <h1>MoneyBridge Loan Application</h1>
   </header>
 
   <nav class="main-nav">
-    <!-- Your navigation -->
+    <!-- Navigation content -->
   </nav>
 
   <form id="loan-application-form" action="/submit-loan-application" method="POST">
-    <!-- Your form fields -->
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input type="text" name="fullname" id="fullname" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" name="email" id="email" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" name="phone" id="phone" required>
+    </div>
+    <div class="form-group">
+      <label for="amount">Loan Amount</label>
+      <input type="number" name="amount" id="amount" required>
+    </div>
+    <div class="form-group">
+      <label for="message">Additional Info</label>
+      <textarea name="message" id="message" rows="4"></textarea>
+    </div>
+    <button type="submit">Submit Application</button>
   </form>
 
   <script>
-    // Client-side JavaScript that handles the UI interactions
     document.addEventListener('DOMContentLoaded', () => {
-      // Mobile Menu Toggle
+      // Mobile Menu Toggle (if used)
       const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
       const mainNav = document.querySelector('.main-nav');
       
@@ -104,19 +136,19 @@ function getHTML(): string {
         header.classList.toggle('sticky', window.pageYOffset > 100);
       });
 
-      // Form Submission (now using fetch API)
+      // Form Submission using fetch
       const loanForm = document.getElementById('loan-application-form');
       if (loanForm) {
         loanForm.addEventListener('submit', async (e) => {
           e.preventDefault();
           const formData = new FormData(loanForm);
-          
+
           try {
             const response = await fetch('/submit-loan-application', {
               method: 'POST',
               body: formData
             });
-            
+
             const result = await response.json();
             alert(result.message);
             if (result.success) {
@@ -131,6 +163,5 @@ function getHTML(): string {
     });
   </script>
 </body>
-</html>
-  `;
+</html>`;
 }
